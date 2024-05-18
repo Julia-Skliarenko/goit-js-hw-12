@@ -1,0 +1,135 @@
+form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+
+.search-images {
+    padding: 8px 16px;
+    width: 272px;
+    height: 40px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: #808080;
+    padding: 0 16px;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    width: 272px;
+    height: 40px;
+    margin-bottom: 32px;
+}
+
+.search-images:hover {
+    border-color: #000000;
+}
+
+.search-images:focus {
+    border-color: #6c8cff;
+}
+
+
+button {
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 91px;
+    height: 43px;
+    background: #4e75ff;
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: #fff;
+}
+
+.search-button:hover,
+.search-button:focus {
+    background-color: #6c8cff;
+}
+
+a {
+    font-family: sans-serif;
+}
+
+.gallery {
+    margin-top: 10px;
+}
+
+img {
+    height: 200px;
+    width: 360px;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 24px;
+    column-gap: 24px;
+    list-style: none;
+}
+
+.gallery-item {
+    border: 1px solid #808080;
+}
+
+.gallery-info {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    text-align: center;
+}
+
+.gallery-info p {
+    font-weight: normal;
+}
+
+.load-more-button {
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 120px;
+    height: 43px;
+    background: #4e75ff;
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.04em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.load-more-button:hover {
+    background-color: #6c8cff
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #000000;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    display: none;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
