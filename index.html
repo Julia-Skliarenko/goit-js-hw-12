@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vgoit-js-hw-12/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Searh Photo</title>
+  
+  
+  
+  <script type="module" crossorigin src="/vgoit-js-hw-12/commonHelpers.js"></script>
+  <link rel="modulepreload" crossorigin href="/vgoit-js-hw-12/assets/vendor-8c59ed88.js">
+  <link rel="stylesheet" href="/vgoit-js-hw-12/assets/vendor-1cd1f9d9.css">
+  <link rel="stylesheet" href="/vgoit-js-hw-12/assets/index-73587652.css">
+</head>
+
+<body>
+  <form action="submit" class="search-form">
+    <div class="form-box">
+      <label for="images" class="label"></label>
+      <input type="text" class="search-images" name="images" placeholder="Search images..." required>
+    </div>
+    <button class="search-button" type="submit">Search</button>
+  </form>
+  <span class="loader"></span>
+
+  <div class="gallery"></div>
+  <button class="load-more-button" type="button">Load more</button>
+  <button id="scrollToTopBtn" title="Go to top"><span class="arrow-up">↑</span></button>
+
+
+  
+  
+  
+  <script src="iziToast.min.js" type="javascript"></script>
+</body>
+
+</html>
