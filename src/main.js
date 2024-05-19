@@ -12,6 +12,7 @@ const loadBtn = document.querySelector('.load-more-button');
 export let page = 1;
 let searchTerm = '';
 let currentImages = [];
+let totalPages = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   loadBtn.style.display = 'none';
@@ -19,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
     const value = searchInput.value.trim();
+
+    // renderImages([]);
+    // loadBtn.style.display = 'none';
+
+    loader.style.display = 'block';
+    // photoGallery.innerHTML = '';
+    page = 1; 
+
     if (value === '') {
       iziToast.error({
         message: 'Please enter a search term!',
@@ -26,9 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       return;
     }
-
-    loader.style.display = 'block';
-    page = 1; 
 
     try {
       const data = await pixabayAPI(value, page);
@@ -46,7 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
         loadBtn.style.display = 'block';
         searchTerm = value;
         currentImages = data.hits;
-        page = 1;
+        totalPages = Math.ceil(data.totalHits / data.hits.length);
+
+        if (data.totalHits < 15) {
+          loadBtn.style.display = 'none';
+        } else {
+      loadBtn.style.display = 'block';
+        }
       }
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -64,6 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 loadBtn.addEventListener('click', async () => {
+  if (page >= totalPages) {
+    loadBtn.style.display = 'none';
+    iziToast.info({
+      message: "You've reached the end of search results.",
+      position: 'topRight',
+    });
+    return;
+    }
+
   try {
     loader.style.display = 'block';
     const data = await pixabayAPI(searchTerm, ++page);

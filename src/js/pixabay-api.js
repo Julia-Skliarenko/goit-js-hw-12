@@ -4,19 +4,36 @@ import axios from 'axios';
 
 
 export async function pixabayAPI(images, page) {
-  const params = new URLSearchParams({
-    key: API_KEY,
-    q: images,
-    image_type: 'photo',
-    orientation: 'horizontal',
-    safesearch: 'true',
-    page,
-    per_page: 15,
-  });
-
-  const response = await fetch(`${BASE_URL}?${params}`);
-  if (!response.ok) {
-    throw new Error(response.statusText);
+  try {
+    const response = await axios.get(BASE_URL, {
+      params: {
+        key: API_KEY,
+        q: images,
+        image_type: 'photo',
+        orientation: 'horizontal',
+        safesearch: 'true',
+        page,
+        per_page: 15,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data, please try again:', error);
+    throw error;
   }
-  return await response.json();
+  // const params = new URLSearchParams({
+  //   key: API_KEY,
+  //   q: images,
+  //   image_type: 'photo',
+  //   orientation: 'horizontal',
+  //   safesearch: 'true',
+  //   page,
+  //   per_page: 15,
+  // });
+
+  // const response = await fetch(`${BASE_URL}?${params}`);
+  // // if (!response.ok) {
+  // //   throw new Error(response.statusText);
+  // // }
+  // return await response.json();
 }
