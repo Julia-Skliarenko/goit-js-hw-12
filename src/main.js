@@ -1,13 +1,24 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
 import { pixabayAPI } from "./js/pixabay-api";
 import { renderImages } from "./js/render-functions";
+
+  const optionsGallery = {
+    captionsData: 'alt',
+    captionDelay: 250,
+  };
+
+  let gallery = new SimpleLightbox('.gallery a', optionsGallery);
 
 const form = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-images');
 const loader = document.querySelector('.loader');
 const loadBtn = document.querySelector('.load-more-button');
+const photoGallery = document.querySelector('.gallery');
 
 export let page = 1;
 let searchTerm = '';
@@ -21,11 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const value = searchInput.value.trim();
 
-    // renderImages([]);
-    // loadBtn.style.display = 'none';
-
     loader.style.display = 'block';
-    // photoGallery.innerHTML = '';
+    photoGallery.innerHTML = '';
     page = 1; 
 
     if (value === '') {
@@ -33,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         message: 'Please enter a search term!',
         position: 'topRight',
       });
+      loader.style.display = 'none';
       return;
     }
 
@@ -48,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
           position: 'topRight',
         });
       } else {
-        renderImages(data.hits);
+        renderImages(data.hits, gallery);
+        gallery.refresh();
         loadBtn.style.display = 'block';
         searchTerm = value;
         currentImages = data.hits;

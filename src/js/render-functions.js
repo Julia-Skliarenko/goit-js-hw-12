@@ -1,16 +1,16 @@
-import SimpleLightbox from "simplelightbox";
-import "simplelightbox/dist/simple-lightbox.min.css";
+// import SimpleLightbox from "simplelightbox";
+// import "simplelightbox/dist/simple-lightbox.min.css";
 
-  const optionsGallery = {
-    captionsData: 'alt',
-    captionDelay: 250,
-  };
+//   const optionsGallery = {
+//     captionsData: 'alt',
+//     captionDelay: 250,
+//   };
 
-  let gallery = new SimpleLightbox('.gallery a', optionsGallery);
+//   let gallery = new SimpleLightbox('.gallery a', optionsGallery);
 
-export function renderImages(images) {
+export function renderImages(images, gallery) {
   const photoGallery = document.querySelector('.gallery');
-  photoGallery.innerHTML = '';
+  // photoGallery.innerHTML = '';
 
     const cardMarkup = images.map(
         ({
