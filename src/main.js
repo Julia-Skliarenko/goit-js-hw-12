@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentImages = data.hits;
         totalPages = Math.ceil(data.totalHits / data.hits.length);
 
-        if (data.totalHits < 15) {
+        if (data.totalHits <= data.hits.length) {
           loadBtn.style.display = 'none';
         } else {
       loadBtn.style.display = 'block';
@@ -105,15 +105,21 @@ loadBtn.addEventListener('click', async () => {
         position: 'topRight',
       });
     } else {
-      currentImages = [...currentImages, ...data.hits];
-      renderImages(currentImages);
+      renderImages(data.hits, gallery);
       const firstImage = document.querySelector('.gallery a');
+
+      gallery.refresh();
 
       const cardHeight = firstImage.getBoundingClientRect().height;
       window.scrollBy({
         top: cardHeight * 2,
         behavior: 'smooth',
       });
+
+    if (page >= totalPages) {
+        loadBtn.style.display = 'none';
+      }
+
     }
   } catch (error) {
     console.log(error);
