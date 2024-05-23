@@ -21,19 +21,4 @@ export async function pixabayAPI(images, page) {
     console.error('Error fetching data, please try again:', error);
     throw error;
   }
-  // const params = new URLSearchParams({
-  //   key: API_KEY,
-  //   q: images,
-  //   image_type: 'photo',
-  //   orientation: 'horizontal',
-  //   safesearch: 'true',
-  //   page,
-  //   per_page: 15,
-  // });
-
-  // const response = await fetch(`${BASE_URL}?${params}`);
-  // // if (!response.ok) {
-  // //   throw new Error(response.statusText);
-  // // }
-  // return await response.json();
 }

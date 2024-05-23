@@ -12,7 +12,7 @@ import { renderImages } from "./js/render-functions";
     captionDelay: 250,
   };
 
-  let gallery = new SimpleLightbox('.gallery a', optionsGallery);
+  let gallery = new SimpleLightbox('.gallery-item', optionsGallery);
 
 const form = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-images');
@@ -27,6 +27,7 @@ let totalPages = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
   loadBtn.style.display = 'none';
+  scrollToTopBtn.style.display = 'none'; 
 });
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
@@ -106,7 +107,7 @@ loadBtn.addEventListener('click', async () => {
       });
     } else {
       renderImages(data.hits, gallery);
-      const firstImage = document.querySelector('.gallery a');
+      const firstImage = document.querySelector('.gallery-item');
 
       gallery.refresh();
 
