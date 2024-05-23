@@ -12,7 +12,7 @@ import { renderImages } from "./js/render-functions";
     captionDelay: 250,
   };
 
-  let gallery = new SimpleLightbox('.gallery-item', optionsGallery);
+  let gallery = new SimpleLightbox('.gallery a', optionsGallery);
 
 const form = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-images');
