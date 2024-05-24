@@ -72,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
          if (page < totalPages) {
         loadBtn.style.display = 'block';
       } else {
-        loadBtn.style.display = 'none'; // Приховуємо кнопку, якщо більше немає сторінок
-      }
+        loadBtn.style.display = 'none'; 
       //   if (data.totalHits <= data.hits.length) {
       //     loadBtn.style.display = 'none';
       //   } else {
