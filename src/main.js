@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
         });
+        loadBtn.style.display = 'none';
       } else {
         renderImages(data.hits, gallery);
         gallery.refresh();
@@ -67,11 +68,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentImages = data.hits;
         totalPages = Math.ceil(data.totalHits / data.hits.length);
 
-        if (data.totalHits <= data.hits.length) {
-          loadBtn.style.display = 'none';
-        } else {
-      loadBtn.style.display = 'block';
-        }
+
+         if (page < totalPages) {
+        loadBtn.style.display = 'block';
+      } else {
+        loadBtn.style.display = 'none'; // Приховуємо кнопку, якщо більше немає сторінок
+      }
+      //   if (data.totalHits <= data.hits.length) {
+      //     loadBtn.style.display = 'none';
+      //   } else {
+      // loadBtn.style.display = 'block';
+      //   }
       }
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -81,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'An error occurred while fetching images. Please try again later.',
         position: 'topRight',
       });
+      loadBtn.style.display = 'none';
     } finally {
       loader.style.display = 'none';
       if (currentImages.length > 0 && page < totalPages) {
@@ -111,6 +119,7 @@ loadBtn.addEventListener('click', async () => {
         message: "You've reached the end of search results.",
         position: 'topRight',
       });
+      loadBtn.style.display = 'none';
     } else {
       renderImages(data.hits, gallery);
       const firstImage = document.querySelector('.gallery-item');
@@ -130,7 +139,7 @@ loadBtn.addEventListener('click', async () => {
     }
   } catch (error) {
     console.log(error);
-
+loadBtn.style.display = 'none';
   } finally {
     loader.style.display = 'none';
   }
