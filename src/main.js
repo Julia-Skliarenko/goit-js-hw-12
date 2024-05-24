@@ -19,6 +19,7 @@ const searchInput = document.querySelector('.search-images');
 const loader = document.querySelector('.loader');
 const loadBtn = document.querySelector('.load-more-button');
 const photoGallery = document.querySelector('.gallery');
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
 export let page = 1;
 let searchTerm = '';
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const value = searchInput.value.trim();
 
     loader.style.display = 'block';
+    loadBtn.style.display = 'none'; 
     photoGallery.innerHTML = '';
     page = 1; 
 
@@ -81,6 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } finally {
       loader.style.display = 'none';
+      if (currentImages.length > 0 && page < totalPages) {
+      loadBtn.style.display = 'block';
+    }
     }
     searchInput.value = '';
   });
@@ -98,6 +103,7 @@ loadBtn.addEventListener('click', async () => {
 
   try {
     loader.style.display = 'block';
+    loadBtn.style.display = 'none'; 
     const data = await pixabayAPI(searchTerm, ++page);
     if (data.hits.length === 0) {
       loadBtn.style.display = 'none';
