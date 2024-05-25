@@ -84,8 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
       loadBtn.style.display = 'none';
     } finally {
       loader.style.display = 'none';
+      searchInput.value = '';
     }
-    searchInput.value = '';
+    // searchInput.value = '';
   });
 
 
