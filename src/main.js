@@ -23,7 +23,6 @@ const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
 export let page = 1;
 let searchTerm = '';
-let currentImages = [];
 let totalPages = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -32,14 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
-    const value = searchInput.value.trim();
+    searchTerm = searchInput.value.trim();
 
     loader.style.display = 'block';
     loadBtn.style.display = 'none'; 
     photoGallery.innerHTML = '';
     page = 1; 
 
-    if (value === '') {
+    if (searchTerm === '') {
       iziToast.error({
         message: 'Please enter a search term!',
         position: 'topRight',
@@ -49,9 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const data = await pixabayAPI(value, page);
+      const data = await pixabayAPI(searchTerm, page);
       if (data.hits.length === 0) {
-        renderImages([]);
         loadBtn.style.display = 'none';
         iziToast.error({
           title: 'Error!',
@@ -59,25 +57,21 @@ document.addEventListener('DOMContentLoaded', () => {
             'Sorry, there are no images matching your search query. Please try again!',
           position: 'topRight',
         });
-        loadBtn.style.display = 'none';
-      } else {
-        renderImages(data.hits, gallery);
+        return;
+      } 
+      
+        renderImages(data.hits);
         gallery.refresh();
         loadBtn.style.display = 'block';
-        searchTerm = value;
-        currentImages = data.hits;
-        totalPages = Math.ceil(data.totalHits / data.hits.length);
+        totalPages = Math.ceil(data.totalHits / 15);
 
 
-         if (page < totalPages) {
-        loadBtn.style.display = 'block';
-      } else {
-        loadBtn.style.display = 'none'; 
-      //   if (data.totalHits <= data.hits.length) {
-      //     loadBtn.style.display = 'none';
-      //   } else {
-      // loadBtn.style.display = 'block';
-      //   }
+        if (page === totalPages) {
+          loadBtn.style.display = 'none';
+          iziToast.info({
+      message: "You've reached the end of search results.",
+      position: 'topRight',
+    });
       }
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -90,51 +84,32 @@ document.addEventListener('DOMContentLoaded', () => {
       loadBtn.style.display = 'none';
     } finally {
       loader.style.display = 'none';
-      if (currentImages.length > 0 && page < totalPages) {
-      loadBtn.style.display = 'block';
-    }
     }
     searchInput.value = '';
   });
 
 
 loadBtn.addEventListener('click', async () => {
-  if (page >= totalPages) {
+  try {
+    loader.style.display = 'block';
+    page += 1;
+    const data = await pixabayAPI(searchTerm, page);
+      
+    renderImages(data.hits);
+    gallery.refresh();
+      const firstImage = document.querySelector('.gallery-item');
+      const cardHeight = firstImage.getBoundingClientRect().height;
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+    if (page >= totalPages) {
     loadBtn.style.display = 'none';
     iziToast.info({
       message: "You've reached the end of search results.",
       position: 'topRight',
     });
     return;
-    }
-
-  try {
-    loader.style.display = 'block';
-    loadBtn.style.display = 'none'; 
-    const data = await pixabayAPI(searchTerm, ++page);
-    if (data.hits.length === 0) {
-      loadBtn.style.display = 'none';
-      iziToast.info({
-        message: "You've reached the end of search results.",
-        position: 'topRight',
-      });
-      loadBtn.style.display = 'none';
-    } else {
-      renderImages(data.hits, gallery);
-      const firstImage = document.querySelector('.gallery-item');
-
-      gallery.refresh();
-
-      const cardHeight = firstImage.getBoundingClientRect().height;
-      window.scrollBy({
-        top: cardHeight * 2,
-        behavior: 'smooth',
-      });
-
-    if (page >= totalPages) {
-        loadBtn.style.display = 'none';
-      }
-
     }
   } catch (error) {
     console.log(error);

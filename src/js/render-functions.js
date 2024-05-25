@@ -1,16 +1,7 @@
-// import SimpleLightbox from "simplelightbox";
-// import "simplelightbox/dist/simple-lightbox.min.css";
 
-//   const optionsGallery = {
-//     captionsData: 'alt',
-//     captionDelay: 250,
-//   };
 
-//   let gallery = new SimpleLightbox('.gallery a', optionsGallery);
-
-export function renderImages(images, gallery) {
+export function renderImages(images) {
   const photoGallery = document.querySelector('.gallery');
-  // photoGallery.innerHTML = '';
 
     const cardMarkup = images.map(
         ({
@@ -38,5 +29,4 @@ export function renderImages(images, gallery) {
 
     photoGallery.insertAdjacentHTML('beforeend', cardMarkup);
 
-  gallery.refresh();
 }
